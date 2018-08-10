@@ -1,32 +1,13 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import BaseElement from './BaseElement';
-
-const propTypes = {
-    tag: PropTypes.string,
-    block: PropTypes.string,
-    element: PropTypes.string.isRequired,
-    modifier: PropTypes.string,
-    modifiers: PropTypes.arrayOf(PropTypes.string),
-    extraClasses: PropTypes.string,
-    id: PropTypes.string,
-    attributes: PropTypes.object
-};
-
-const defaultProps = {
-    tag: 'div',
-    block: '',
-    modifier: 'default',
-    modifiers: [],
-    extraClasses: '',
-    attributes: {}
-};
+import {baseDefaultProps, BaseProps} from "./BaseProps";
 
 const safeProps = [
-    'src', 'alt', 'onClick', 'onBlur', 'onSubmit'
+    'src', 'alt', 'onClick', 'onBlur', 'onSubmit', 'style'
 ];
 
-export default class BaseComponent extends PureComponent {
+export default class BaseComponent extends PureComponent<BaseProps> {
+    static defaultProps = baseDefaultProps;
 
     get className() {
 
@@ -44,7 +25,7 @@ export default class BaseComponent extends PureComponent {
     get attributes() {
 		return Object.keys(this.props.attributes)
 			.reduce(
-				(acc, attr) => ({
+				(acc, attr: string) => ({
 					...acc,
 					[`data-${attr}`.replace('data-data-', 'data-')]: this.props.attributes[attr]
 				}), {}
@@ -53,10 +34,10 @@ export default class BaseComponent extends PureComponent {
 
     render() {
         return (
-            <BaseElement 
+            <BaseElement
                 tag={this.props.tag}
-                id={this.props.id} 
-                className={this.className} 
+                id={this.props.id}
+                className={this.className}
                 {...safeProps.reduce(
                     (acc, prop) => ({
                         ...acc,
@@ -71,13 +52,3 @@ export default class BaseComponent extends PureComponent {
     }
 
 }
-
- BaseComponent.propTypes = propTypes;
- BaseComponent.defaultProps = defaultProps;
-
- export function withBaseProps(newProps, propType = 'defaultProps') {
-     return {
-         ...BaseComponent[propType],
-         ...newProps
-     };
- }

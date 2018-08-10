@@ -3,7 +3,7 @@ import BaseElement from './BaseElement';
 import {baseDefaultProps, BaseProps} from "./BaseProps";
 
 const safeProps = [
-    'src', 'alt', 'onClick', 'onBlur', 'onSubmit', 'style'
+    'href', 'src', 'alt', 'onClick', 'onBlur', 'onSubmit', 'style'
 ];
 
 export default class BaseComponent extends PureComponent<BaseProps> {

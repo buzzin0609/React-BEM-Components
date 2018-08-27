@@ -1,4 +1,5 @@
 
+export {setSafeProps as setSafeProps} from './components/BaseComponent';
 export {default as BaseComponent} from './components/BaseComponent';
 export {default as BaseProps} from './components/BaseProps';
 export {baseDefaultProps as baseDefaultProps} from './components/BaseProps';

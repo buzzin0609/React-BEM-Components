@@ -2,9 +2,13 @@ import React, { PureComponent } from 'react';
 import BaseElement from './BaseElement';
 import {baseDefaultProps, BaseProps} from "./BaseProps";
 
-const safeProps = [
-    'href', 'src', 'alt', 'onClick', 'onBlur', 'onSubmit', 'style'
+let safeProps = [
+    'href', 'src', 'alt', 'onClick', 'onBlur', 'onSubmit', 'style', 'target'
 ];
+
+export function setSafeProps(propList: string[]): void {
+    safeProps = [...propList, ...safeProps];
+}
 
 export default class BaseComponent extends PureComponent<BaseProps> {
     static defaultProps = baseDefaultProps;
